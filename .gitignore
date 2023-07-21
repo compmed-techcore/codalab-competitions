@@ -1,3 +1,6 @@
+# Custom #
+codalab/apps/web/fixtures/initialize_site.json
+
 # Docker #
 ##########
 .env
