@@ -10,10 +10,21 @@ done
 echo "WEB IS RUNNING"
 
 # Static files
-npm cache clean
+#npm cache clean
+##
+npm cache verify
+##
 npm install .
 npm install -g less
 npm run build-css
+##
+#npm audit fix
+##
+
+## Install django-s3direct
+#pip install -U django-s3direct
+
+
 python manage.py collectstatic --noinput
 
 # Syncdb is deperecated, replaced with migrate. Keeping this here for history.
