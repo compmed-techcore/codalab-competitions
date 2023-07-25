@@ -16,7 +16,7 @@ class Queue(models.Model):
 #    vhost = UUIDField(unique=True)
     vhost = models.UUIDField(unique=True)
     is_public = models.BooleanField(default=False)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     organizers = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name='organizers',
