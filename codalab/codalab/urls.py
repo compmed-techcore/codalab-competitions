@@ -21,7 +21,8 @@ urlpatterns = [
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    url(r'^hidden-admin/', include(admin.site.urls)),
+#    url(r'^hidden-admin/', include(admin.site.urls)),
+    url(r'^hidden-admin/', admin.site.urls),
 
     url(r'^', include('pin_passcode.urls')),
 
