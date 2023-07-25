@@ -28,7 +28,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.base import ContentFile
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import IntegrityError
 from django.db import models
