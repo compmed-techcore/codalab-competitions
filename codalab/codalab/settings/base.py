@@ -398,7 +398,7 @@ class Base(Configuration):
     AWS_S3_ADDRESSING_STYLE = os.environ.get('AWS_S3_ADDRESSING_STYLE', 'virtual')
 
     # TODO: We will need to explicitly set this eventually. When set to None publicly uploaded files like images are not viewable. (Access Denied from AWS)
-    # AWS_DEFAULT_ACL = None
+    AWS_DEFAULT_ACL = None
 
     # Azure
     AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')
