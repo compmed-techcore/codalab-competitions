@@ -88,10 +88,10 @@ class ContentCategory(MPTTModel):
             - Participate.
             - Results.
     """
-    parent = TreeForeignKey('self', related_name='children', null=True, blank=True)
+    parent = TreeForeignKey('self', related_name='children', null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     codename = models.SlugField(max_length=100, unique=True)
-    visibility = models.ForeignKey(ContentVisibility)
+    visibility = models.ForeignKey(ContentVisibility, on_delete=models.CASCADE)
     is_menu = models.BooleanField(default=True)
     content_limit = models.PositiveIntegerField(default=1)
 
@@ -115,12 +115,12 @@ class DefaultContentItem(models.Model):
             - Get Data.
             - Submit / View Results.
     """
-    category = TreeForeignKey(ContentCategory)
+    category = TreeForeignKey(ContentCategory, on_delete=models.CASCADE)
     label = models.CharField(max_length=100)
     codename = models.SlugField(max_length=100, unique=True)
     rank = models.IntegerField(default=0)
     required = models.BooleanField(default=False)
-    initial_visibility = models.ForeignKey(ContentVisibility)
+    initial_visibility = models.ForeignKey(ContentVisibility, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.label
@@ -134,7 +134,7 @@ class PageContainer(models.Model):
     Base class to represent a page container. Only one container per :class:`.Competition`.
     """
     name = models.CharField(max_length=200, blank=True)
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField(db_index=True)
     owner = GenericForeignKey('content_type', 'object_id')
 
@@ -187,7 +187,7 @@ class ExternalFile(models.Model):
     """
     Class representing a External File.
     """
-    type = models.ForeignKey(ExternalFileType)
+    type = models.ForeignKey(ExternalFileType, on_delete=models.CASCADE)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     source_url = models.URLField()
@@ -261,7 +261,7 @@ class Competition(ChaHubSaveMixin, models.Model):
     end_date = models.DateTimeField(null=True, blank=True, verbose_name="End Date (UTC)")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='competitioninfo_creator', on_delete=models.CASCADE)
     admins = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='competition_admins', blank=True, null=True)
-    modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='competitioninfo_modified_by')
+    modified_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='competitioninfo_modified_by', on_delete=models.CASCADE)
     last_modified = models.DateTimeField(auto_now_add=True)
     pagecontainers = GenericRelation(PageContainer)
     published = models.BooleanField(default=False, verbose_name="Publicly Available")
@@ -650,10 +650,10 @@ class Page(models.Model):
     """
     Model representing a competition's page. It belongs to a :class:`.Competition` and :class:`.PageContainer`
     """
-    category = TreeForeignKey(ContentCategory)
-    defaults = models.ForeignKey(DefaultContentItem, null=True, blank=True)
+    category = TreeForeignKey(ContentCategory, on_delete=models.CASCADE)
+    defaults = models.ForeignKey(DefaultContentItem, null=True, blank=True, on_delete=models.CASCADE)
     codename = models.SlugField(max_length=100)
-    container = models.ForeignKey(PageContainer, related_name='pages', verbose_name="Page Container")
+    container = models.ForeignKey(PageContainer, related_name='pages', verbose_name="Page Container", on_delete=models.CASCADE)
     title = models.CharField(max_length=100, null=True, blank=True) # TODO, probably needs to be removed
     label = models.CharField(max_length=100, verbose_name="Title")
     rank = models.IntegerField(default=0, verbose_name="Order")
@@ -1312,7 +1312,7 @@ class CompetitionParticipant(models.Model):
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='participation', on_delete=models.CASCADE)
     competition = models.ForeignKey(Competition, related_name='participants', on_delete=models.CASCADE)
-    status = models.ForeignKey(ParticipantStatus)
+    status = models.ForeignKey(ParticipantStatus, on_delete=models.CASCADE)
     reason = models.CharField(max_length=100, null=True, blank=True)
     deleted = models.BooleanField(default=False)
 
@@ -1392,7 +1392,7 @@ class CompetitionSubmission(ChaHubSaveMixin, models.Model):
     started_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
     execution_key = models.TextField(blank=True, default="")
-    status = models.ForeignKey(CompetitionSubmissionStatus)
+    status = models.ForeignKey(CompetitionSubmissionStatus, on_delete=models.CASCADE)
     status_details = models.CharField(max_length=100, null=True, blank=True)
     submission_number = models.PositiveIntegerField(default=0)
     output_file = models.FileField(upload_to=_uuidify('submission_output'), storage=BundleStorage, null=True, blank=True)
@@ -1435,7 +1435,7 @@ class CompetitionSubmission(ChaHubSaveMixin, models.Model):
 
     # Team of the user in the moment of the submission
     # This field is not used anywhere we can see 4/18/2018
-    team = models.ForeignKey(Team, related_name='team', null=True, blank=True)
+    team = models.ForeignKey(Team, related_name='team', null=True, blank=True, on_delete=models.CASCADE)
 
     queue_name = models.TextField(null=True, blank=True)
 
@@ -2414,7 +2414,7 @@ class SubmissionComputedScoreField(models.Model):
 
 
 class SubmissionScoreSet(MPTTModel):
-    parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', on_delete=models.CASCADE)
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
     key = models.CharField(max_length=50)
     label = models.CharField(max_length=50)
@@ -2503,7 +2503,7 @@ class OrganizerDataSet(models.Model):
         null=True,
     )
     sub_data_files = models.ManyToManyField('OrganizerDataSet', null=True, blank=True, verbose_name="Bundle of data files")
-    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL)
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     key = models.UUIDField(default=uuid.uuid4)
 
     def save(self, **kwargs):
