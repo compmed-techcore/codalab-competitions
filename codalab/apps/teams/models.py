@@ -201,7 +201,7 @@ class Team(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='TeamMembership', blank=True, null=True, related_name='teams')
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     last_modified = models.DateTimeField(auto_now_add=True)
-    status = models.ForeignKey(TeamStatus, null=True)
+    status = models.ForeignKey(TeamStatus, null=True, on_delete=models.CASCADE)
     reason = models.CharField(max_length=100,null=True,blank=True)
 
     def save(self, *args, **kwargs):
@@ -295,7 +295,7 @@ class TeamMembership(models.Model):
     start_date = models.DateTimeField(null=True, blank=True, verbose_name="Start Date (UTC)")
     end_date = models.DateTimeField(null=True, blank=True, verbose_name="End Date (UTC)")
     message = models.TextField(null=True, blank=True)
-    status = models.ForeignKey(TeamMembershipStatus, null=True)
+    status = models.ForeignKey(TeamMembershipStatus, null=True, on_delete=models.CASCADE)
     reason = models.CharField(max_length=100,null=True,blank=True)
 
     def __unicode__(self):
