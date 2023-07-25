@@ -55,7 +55,8 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.views.generic import FormView
 from django.views.generic import View, TemplateView, DetailView, ListView, UpdateView, CreateView, DeleteView
-from extra_views import UpdateWithInlinesView, InlineFormSet, NamedFormsetsMixin
+#from extra_views import UpdateWithInlinesView, InlineFormSet, NamedFormsetsMixin
+from extra_views import UpdateWithInlinesView, InlineFormSetFactory, NamedFormsetsMixin
 
 from .tasks import evaluate_submission, re_run_all_submissions_in_phase, create_competition, _make_url_sassy, \
     make_modified_bundle
@@ -276,20 +277,20 @@ def sort_data_table(request, context, list):
 # Competition Views
 #
 
-class PhasesInline(InlineFormSet):
+class PhasesInline(InlineFormSetFactory):
     model = models.CompetitionPhase
     form_class = forms.CompetitionPhaseForm
     # extra = 0
     factory_kwargs = {'extra': 0}
 
-class PagesInline(InlineFormSet):
+class PagesInline(InlineFormSetFactory):
     model = models.Page
     form_class = forms.PageForm
     # extra = 0
     factory_kwargs = {'extra': 0}
 
 
-class LeaderboardInline(InlineFormSet):
+class LeaderboardInline(InlineFormSetFactory):
     model = models.SubmissionScoreDef
     form_class = forms.LeaderboardForm
     # extra = 0
