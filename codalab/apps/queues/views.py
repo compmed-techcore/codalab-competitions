@@ -1,6 +1,8 @@
 from braces.views import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, ValidationError
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
+from django.urls import reverse
+
 from django.forms.utils import ErrorList
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
