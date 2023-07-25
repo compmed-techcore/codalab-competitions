@@ -39,7 +39,9 @@ from django.core.exceptions import ImproperlyConfigured
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
+from django.urls import reverse
+
 from django.db import connection
 from django.db.models import Q, Max, Min, Count, Case, When
 from django.http import Http404, HttpResponseForbidden
