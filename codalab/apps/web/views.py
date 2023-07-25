@@ -46,7 +46,9 @@ from django.db import connection
 from django.db.models import Q, Max, Min, Count, Case, When
 from django.http import Http404, HttpResponseForbidden
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, render, get_object_or_404, redirect
+#from django.shortcuts import render_to_response, render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+
 from django.template import RequestContext
 from django.utils import timezone
 from django.utils.html import strip_tags
