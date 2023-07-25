@@ -8,7 +8,7 @@ class Configuration(models.Model):
     front_page_message = models.TextField(null=True, blank=True)
 
     # The competition to point the front page to, the only one the users should see
-    only_competition = models.ForeignKey('web.Competition', null=True, blank=True)
+    only_competition = models.ForeignKey('web.Competition', null=True, blank=True, on_delete=models.CASCADE)
 
     disable_all_submissions = models.BooleanField(default=False, verbose_name="Disable all sumbissions")
 
