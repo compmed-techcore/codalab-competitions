@@ -15,7 +15,8 @@ urlpatterns = [
     url(r'^admin_monitoring_links/$', MyAdminView.as_view(), name='admin_monitoring_links'),
     url(r'^admin_competitions_manager', views.admin_competitions_manager, name='admin_competitions_manager'),
     url(r'^teams/', include('apps.teams.urls')),
-    url(r'^newsletter/', include('apps.newsletter.urls', app_name='newsletter', namespace='newsletter')),
+#   url(r'^newsletter/', include('apps.newsletter.urls', app_name='newsletter', namespace='newsletter')),
+    url(r'^newsletter/', include(('apps.newsletter.urls', 'newsletter'), namespace='newsletter')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
