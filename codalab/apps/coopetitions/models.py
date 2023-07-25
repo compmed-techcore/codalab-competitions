@@ -10,7 +10,7 @@ class Like(models.Model):
         unique_together = (('submission', 'user'),)
 
     submission = models.ForeignKey('web.CompetitionSubmission', related_name="likes", on_delete=models.CASCADE)
-    user = models.ForeignKey('authenz.ClUser')
+    user = models.ForeignKey('authenz.ClUser', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Dislike(models.Model):
         unique_together = (('submission', 'user'),)
 
     submission = models.ForeignKey('web.CompetitionSubmission', related_name="dislikes", on_delete=models.CASCADE)
-    user = models.ForeignKey('authenz.ClUser')
+    user = models.ForeignKey('authenz.ClUser', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class DownloadRecord(models.Model):
         unique_together = (('submission', 'user'),)
 
     submission = models.ForeignKey('web.CompetitionSubmission', related_name="downloads", on_delete=models.CASCADE)
-    user = models.ForeignKey('authenz.ClUser')
+    user = models.ForeignKey('authenz.ClUser', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
