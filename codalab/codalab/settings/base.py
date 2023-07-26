@@ -38,6 +38,10 @@ def _bool_from_env(key, default):
 
 
 class Base(Configuration):
+    # Created and set the DEFAULT_AUTO_FIELD due to warning related to Django upgrade
+    # https://dev.to/weplayinternet/upgrading-to-django-3-2-and-fixing-defaultautofield-warnings-518n
+    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
     SETTINGS_DIR = os.path.dirname(os.path.abspath(__file__))
     PROJECT_APP_DIR = os.path.dirname(SETTINGS_DIR)
     PROJECT_DIR = os.path.dirname(PROJECT_APP_DIR)
