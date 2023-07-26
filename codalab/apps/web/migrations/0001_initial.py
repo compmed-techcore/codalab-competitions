@@ -10,7 +10,7 @@ import django_extensions.db.fields
 import mptt.fields
 import s3direct.fields
 import storages.backends.s3boto3
-
+import uuid
 
 class Migration(migrations.Migration):
 
@@ -45,7 +45,9 @@ class Migration(migrations.Migration):
                 ('is_migrating', models.BooleanField(default=False)),
                 ('force_submission_to_leaderboard', models.BooleanField(default=False)),
                 ('disallow_leaderboard_modifying', models.BooleanField(default=False)),
-                ('secret_key', django_extensions.db.fields.UUIDField(blank=True, editable=False)),
+#               ('secret_key', django_extensions.db.fields.UUIDField(blank=True, editable=False)),
+                ('secret_key', models.UUIDField(default=uuid.uuid4, editable=False)),
+
                 ('enable_medical_image_viewer', models.BooleanField(default=False)),
                 ('enable_detailed_results', models.BooleanField(default=False)),
                 ('original_yaml_file', models.TextField(blank=True, default='', null=True)),
@@ -308,7 +310,8 @@ class Migration(migrations.Migration):
                 ('type', models.CharField(choices=[('Reference Data', 'Reference Data'), ('Scoring Program', 'Scoring Program'), ('Input Data', 'Input Data'), ('Ingestion Program', 'Ingestion Program'), ('Starting Kit', 'Starting Kit'), ('Public Data', 'Public Data'), ('None', 'None')], default='None', max_length=64)),
                 ('description', models.TextField(blank=True, null=True)),
                 ('data_file', models.FileField(blank=True, null=True, storage=storages.backends.s3boto3.S3Boto3Storage(bucket='tthomas-codalab-private'), upload_to=apps.web.models._uuidify('dataset_data_file'), verbose_name='Data file')),
-                ('key', django_extensions.db.fields.UUIDField(blank=True, editable=False)),
+#               ('key', django_extensions.db.fields.UUIDField(blank=True, editable=False)),
+                ('key', models.UUIDField(default=uuid.uuid4, editable=False)),
                 ('sub_data_files', models.ManyToManyField(blank=True, null=True, to='web.OrganizerDataSet', verbose_name='Bundle of data files')),
                 ('uploaded_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
