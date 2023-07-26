@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import django_extensions.db.fields
-
+import uuid
 
 class Migration(migrations.Migration):
 
@@ -22,7 +22,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=64)),
-                ('vhost', django_extensions.db.fields.UUIDField(blank=True, editable=False, unique=True)),
+#                ('vhost', django_extensions.db.fields.UUIDField(blank=True, editable=False, unique=True)),
+                ('vhost', models.UUIDField(unique=True, default=uuid.uuid4, editable=False)),
+                
                 ('is_public', models.BooleanField(default=False)),
                 ('organizers', models.ManyToManyField(blank=True, help_text='(Organizers allowed to view this queue when they assign their competition to a queue)', null=True, related_name='organizers', to=settings.AUTH_USER_MODEL)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
