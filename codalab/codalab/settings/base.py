@@ -421,13 +421,13 @@ class Base(Configuration):
     S3DIRECT_DESTINATIONS = {
         'competitions': {
             'key': lambda f: _uuidpathext(f, 'uploads/competitions/'),
-            'auth': lambda u: u.is_authenticated(),
+            'auth': lambda u: u.is_authenticated,
             'bucket': AWS_STORAGE_PRIVATE_BUCKET_NAME,
             'allowed': ['application/zip', 'application/octet-stream', 'application/x-zip-compressed']
         },
         'submissions': {
             'key': lambda f: _uuidpathext(f, 'uploads/submissions/'),
-            'auth': lambda u: u.is_authenticated(),
+            'auth': lambda u: u.is_authenticated,
             'bucket': AWS_STORAGE_PRIVATE_BUCKET_NAME,
             'allowed': ['application/zip', 'application/octet-stream', 'application/x-zip-compressed']
         }
