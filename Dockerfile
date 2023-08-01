@@ -17,7 +17,8 @@ RUN pip install --upgrade pip  # make things faster, hopefully
 COPY codalab/requirements/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 # New installs via pip instead of requirements.txt 20230721
-RUN pip install Django==3.2.20
+RUN pip install Django==3.2.20 # 3.2 is LTE until 4/2024
+#RUN pip install Django==3.1.14 #latest version of 3.1
 RUN pip install django-braces==1.15.0
 RUN pip install django-analytical==3.1.0
 RUN pip install django-appconf==1.0.5
@@ -44,6 +45,6 @@ RUN pip install django-s3direct==2.0.3
 RUN pip install django-allauth==0.54.0
 RUN pip install psycopg2==2.9.6
 RUN pip install django-pin-passcode==0.3.1
-
+RUN pip install boto3==1.28.9
 
 WORKDIR /app/codalab
