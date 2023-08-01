@@ -74,7 +74,7 @@ def get_user_token(user):
     Returns an access token for the given user. This function facilitates
     interactions with the bundle service.
     """
-    if user is None or not user.is_authenticated():
+    if user is None or not user.is_authenticated:
         return None
 
     client = Application.objects.get(client_id=cli_client_id(user))
