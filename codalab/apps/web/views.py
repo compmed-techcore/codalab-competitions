@@ -642,7 +642,7 @@ class CompetitionDetailView(DetailView):
         try:
             all_participants = competition.participants.all().select_related('user')
 
-            if self.request.user.is_authenticated() and self.request.user in [x.user for x in all_participants]:
+            if self.request.user.is_authenticated and self.request.user in [x.user for x in all_participants]:
                 context['my_status'] = [x.status for x in all_participants if x.user == self.request.user][0].codename
                 context['my_participant'] = competition.participants.get(user=self.request.user)
                 user_team = get_user_team(context['my_participant'], competition)
@@ -923,7 +923,7 @@ class CompetitionPublicSubmissionByPhases(TemplateView):
             for submission in public_submissions:
                 # Let's process all public submissions and figure out which ones we've already liked
 
-                if self.request.user.is_authenticated():
+                if self.request.user.is_authenticated:
                     if Like.objects.filter(submission=submission, user=self.request.user).exists():
                         submission.already_liked = True
                     if Dislike.objects.filter(submission=submission, user=self.request.user).exists():
@@ -2163,7 +2163,7 @@ class CompetitionSubmissionWidgetView(WidgetMixin, DetailView):
         if settings.USE_AWS:
             context['form'] = forms.SubmissionS3UploadForm
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             if competition.participants.filter(user__in=[self.request.user]).exists():
                 participant = competition.participants.get(user=self.request.user)
                 if participant.status.codename == models.ParticipantStatus.APPROVED:
