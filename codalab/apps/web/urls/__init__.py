@@ -32,14 +32,14 @@ urlpatterns = [
     # In Django 1.9 these will no longer return as a permanent redirect by default. This seems fine for our case, as
     # these URLS could change in the future.
 
-    url(r'^(?i)AutoML/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2321')),
-    url(r'^(?i)ChalearnLAP_Pose/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2231')),
-    url(r'^(?i)ChalearnLAP_Action/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2241')),
-    url(r'^(?i)Age/?', RedirectView.as_view(url='https://www.codalab.org/competitions/4711')),
-    url(r'^(?i)Caption/?', RedirectView.as_view(url='https://www.codalab.org/competitions/3221')),
+    url(r'^$(?i)AutoML/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2321')),
+    url(r'^$(?i)ChalearnLAP_Pose/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2231')),
+    url(r'^$(?i)ChalearnLAP_Action/?', RedirectView.as_view(url='https://www.codalab.org/competitions/2241')),
+    url(r'^$(?i)Age/?', RedirectView.as_view(url='https://www.codalab.org/competitions/4711')),
+    url(r'^$(?i)Caption/?', RedirectView.as_view(url='https://www.codalab.org/competitions/3221')),
 
     # Static pages
-    url(r'^(?i)highlights/?', views.Highlights.as_view(), name="highlights"),
+    url(r'^$(?i)highlights/?', views.Highlights.as_view(), name="highlights"),
 
     # Helper that closes window upon visiting
     url(r'^close/$', TemplateView.as_view(template_name='close.html')),
