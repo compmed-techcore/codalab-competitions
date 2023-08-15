@@ -1343,7 +1343,8 @@ class MyCompetitionSubmissionDetailedResults(TemplateView):
             'user': submission.participant.user,
             'submission': submission,
         }
-        return render_to_response('web/my/detailed_results.html', context_dict, RequestContext(request))
+        return render(request, 'web/my/detailed_results.html', context=context_dict)
+#        return render_to_response('web/my/detailed_results.html', context_dict, RequestContext(request))
 
 
 class MyCompetitionSubmissionsPage(LoginRequiredMixin, TemplateView):
